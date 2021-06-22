@@ -1,0 +1,37 @@
+extends layout
+
+block content
+     
+    -let  total = 0;
+    .container
+        br
+        table.table.table-hover 
+            thead.table-primary 
+                tr
+                    th Name
+                    th Price
+                    th Rating  
+                    th Action  
+            tbody 
+                each product in cart
+                    -total += product.price
+                    tr 
+                        td=product.name 
+                        td=product.price
+                        td
+                          -let n=0
+                          while n<=4
+                            if product.rating-1>=n
+                              span 
+                                i.fa.fa-star(style="color:yellow")
+                            else
+                              span 
+                                i.fa.fa-star
+                            -n+=1
+
+                        td 
+                            a(href="cart/remove/"+product._id).btn.btn-danger Remove 
+            tfoot 
+                tr 
+                    th Total Price
+                    th=total
